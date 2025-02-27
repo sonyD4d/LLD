@@ -26,46 +26,38 @@ class Invoker:
         else:
             print(f"Command [{command_name}] not recognised")
 
-class Receiver:
+class Light:
     "The Receiver"
 
     @staticmethod
-    def run_command_1():
-        "A set of instructions to run"
-        print("Executing Command 1")
+    def switch_on():
+        print("Switching On the Light")
 
     @staticmethod
-    def run_command_2():
-        "A set of instructions to run"
-        print("Executing Command 2")
+    def switch_off():
+        print("Switching Off the Light")
 
-class Command1(ICommand):  # pylint: disable=too-few-public-methods
-    """A Command object, that implements the ICommand interface and
-    runs the command on the designated receiver"""
-
-    def __init__(self, receiver):
-        self._receiver = receiver
+class CommandOn(ICommand):  # pylint: disable=too-few-public-methods
+    def __init__(self, light):
+        self._receiver = light
 
     def execute(self):
-        self._receiver.run_command_1()
+        self._receiver.switch_on()
 
-class Command2(ICommand):  # pylint: disable=too-few-public-methods
-    """A Command object, that implements the ICommand interface and
-    runs the command on the designated receiver"""
-
-    def __init__(self, receiver):
-        self._receiver = receiver
+class CommandOff(ICommand):  # pylint: disable=too-few-public-methods
+    def __init__(self, light):
+        self._receiver = light
 
     def execute(self):
-        self._receiver.run_command_2()
+        self._receiver.switch_off()
 
 # The CLient
 # Create a receiver
-RECEIVER = Receiver()
+RECEIVER = Light()
 
 # Create Commands
-COMMAND1 = Command1(RECEIVER)
-COMMAND2 = Command2(RECEIVER)
+COMMAND1 = CommandOn(RECEIVER)
+COMMAND2 = CommandOff(RECEIVER)
 
 # Register the commands with the invoker
 INVOKER = Invoker()
